@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "623664314639",
+    "project_id": "noteapp-33811",
+    "storage_bucket": "noteapp-33811.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623664314639:android:d4836e5c439e5e1e14267a",
+        "android_client_info": {
+          "package_name": "com.example.memo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623664314639-2gpi471klnp1fia240tna5dlhknh7fr5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq4RXMLf-RMYH26V4_GmFiZWD8Ta-lDA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623664314639-2gpi471klnp1fia240tna5dlhknh7fr5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
