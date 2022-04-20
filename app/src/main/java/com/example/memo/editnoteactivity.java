@@ -26,7 +26,7 @@ import java.util.Map;
 public class editnoteactivity extends AppCompatActivity {
 
     Intent data;
-    EditText medittitleofnote,meditcontentofnote;
+    EditText medittitleofnote, meditcontentofnote;
     FloatingActionButton msaveeditnote;
 
     FirebaseAuth firebaseAuth;
@@ -38,20 +38,19 @@ public class editnoteactivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editnoteactivity);
-        medittitleofnote=findViewById(R.id.edittitleofnote);
-        meditcontentofnote=findViewById(R.id.editcontentofnote);
-        msaveeditnote=findViewById(R.id.saveeditnote);
+        medittitleofnote = findViewById(R.id.edittitleofnote);
+        meditcontentofnote = findViewById(R.id.editcontentofnote);
+        msaveeditnote = findViewById(R.id.saveeditnote);
 
-        data=getIntent();
+        data = getIntent();
 
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
-        Toolbar toolbar=findViewById(R.id.toolbarofeditnote);
+        Toolbar toolbar = findViewById(R.id.toolbarofeditnote);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
 
         msaveeditnote.setOnClickListener(new View.OnClickListener() {
@@ -59,30 +58,27 @@ public class editnoteactivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Toast.makeText(getApplicationContext(),"savebuton click",Toast.LENGTH_SHORT).show();
 
-                String newtitle=medittitleofnote.getText().toString();
-                String newcontent=meditcontentofnote.getText().toString();
+                String newtitle = medittitleofnote.getText().toString();
+                String newcontent = meditcontentofnote.getText().toString();
 
-                if(newtitle.isEmpty()||newcontent.isEmpty())
-                {
-                    Toast.makeText(getApplicationContext(),"무엇인가 비어 있다.",Toast.LENGTH_SHORT).show();
+                if (newtitle.isEmpty() || newcontent.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "무엇인가 비어 있다.", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                else
-                {
-                    DocumentReference documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(data.getStringExtra("noteId"));
-                    Map<String,Object> note=new HashMap<>();
-                    note.put("title",newtitle);
-                    note.put("content",newcontent);
+                } else {
+                    DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(data.getStringExtra("noteId"));
+                    Map<String, Object> note = new HashMap<>();
+                    note.put("title", newtitle);
+                    note.put("content", newcontent);
                     documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(),"참고가 업데이트되었습니다.",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(editnoteactivity.this,notesactivity.class));
+                            Toast.makeText(getApplicationContext(), "참고가 업데이트되었습니다.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(editnoteactivity.this, notesactivity.class));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(),"업데이트 실패",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "업데이트 실패", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -91,8 +87,8 @@ public class editnoteactivity extends AppCompatActivity {
         });
 
 
-        String notetitle=data.getStringExtra("title");
-        String notecontent=data.getStringExtra("content");
+        String notetitle = data.getStringExtra("title");
+        String notecontent = data.getStringExtra("content");
         meditcontentofnote.setText(notecontent);
         medittitleofnote.setText(notetitle);
     }
@@ -100,8 +96,7 @@ public class editnoteactivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId()==android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
         }
 

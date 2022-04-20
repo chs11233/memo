@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class signup extends AppCompatActivity {
 
 
-    private EditText msignupemail,msignuppassword;
+    private EditText msignupemail, msignuppassword;
     private RelativeLayout msignup;
     private TextView mgotologin;
 
@@ -43,7 +43,7 @@ public class signup extends AppCompatActivity {
         mgotologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(signup.this,MainActivity.class);
+                Intent intent = new Intent(signup.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -55,30 +55,22 @@ public class signup extends AppCompatActivity {
                 String mail = msignupemail.getText().toString().trim();
                 String password = msignuppassword.getText().toString().trim();
 
-                if(mail.isEmpty() || password.isEmpty())
-                {
-                    Toast.makeText(getApplicationContext(),"모든 필드가 필요합니다.",Toast.LENGTH_SHORT).show();
-                }
-                else if(password.length()<7)
-                {
-                    Toast.makeText(getApplicationContext(),"암호는 7자리보다 커야 합니다.",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                if (mail.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "모든 필드가 필요합니다.", Toast.LENGTH_SHORT).show();
+                } else if (password.length() < 7) {
+                    Toast.makeText(getApplicationContext(), "암호는 7자리보다 커야 합니다.", Toast.LENGTH_SHORT).show();
+                } else {
                     //registered the user to firebase
 
-                    firebaseAuth.createUserWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    firebaseAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            if(task.isSuccessful())
-                            {
-                                Toast.makeText(getApplicationContext(),"등록 성공",Toast.LENGTH_SHORT).show();
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(), "등록 성공", Toast.LENGTH_SHORT).show();
                                 sendEmailVerification();
-                            }
-                            else
-                            {
-                                Toast.makeText(getApplicationContext(),"등록 실패",Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "등록 실패", Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -90,25 +82,20 @@ public class signup extends AppCompatActivity {
     }
 
     //send email verification
-    private void sendEmailVerification()
-    {
+    private void sendEmailVerification() {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        if(firebaseUser!=null)
-        {
+        if (firebaseUser != null) {
             firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(getApplicationContext(),"확인 이메일 전송, 확인 및 다시 로그인",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "확인 이메일 전송, 확인 및 다시 로그인", Toast.LENGTH_SHORT).show();
                     firebaseAuth.signOut();
                     finish();
-                    startActivity(new Intent(signup.this,MainActivity.class));
+                    startActivity(new Intent(signup.this, MainActivity.class));
                 }
             });
-        }
-
-        else
-        {
-            Toast.makeText(getApplicationContext(),"확인 메일을 보내지 못했습니다.",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "확인 메일을 보내지 못했습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 

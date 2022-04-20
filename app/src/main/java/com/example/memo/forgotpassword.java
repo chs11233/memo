@@ -15,7 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class    forgotpassword extends AppCompatActivity {
+public class forgotpassword extends AppCompatActivity {
 
     private EditText mforgotpassword;
     private Button mpasswordrecoverbutton;
@@ -30,9 +30,9 @@ public class    forgotpassword extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        mforgotpassword=findViewById(R.id.forgotpassword);
-        mpasswordrecoverbutton=findViewById(R.id.passwordrecoverbutton);
-        mgobacktologin=findViewById(R.id.gobacktologin);
+        mforgotpassword = findViewById(R.id.forgotpassword);
+        mpasswordrecoverbutton = findViewById(R.id.passwordrecoverbutton);
+        mgobacktologin = findViewById(R.id.gobacktologin);
 
         firebaseAuth = firebaseAuth.getInstance();
 
@@ -40,7 +40,7 @@ public class    forgotpassword extends AppCompatActivity {
         mgobacktologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(forgotpassword.this,MainActivity.class);
+                Intent intent = new Intent(forgotpassword.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -49,27 +49,21 @@ public class    forgotpassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String mail = mforgotpassword.getText().toString().trim();
-                if(mail.isEmpty())
-                {
-                    Toast.makeText(getApplicationContext(),"먼저 메일 입력",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                if (mail.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "먼저 메일 입력", Toast.LENGTH_SHORT).show();
+                } else {
                     //비밀번호 복구 이메일을 보내야 한다.
 
                     firebaseAuth.sendPasswordResetEmail(mail).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
-                            if (task.isSuccessful())
-                            {
-                                Toast.makeText(getApplicationContext(),"메일을 보냈습니다.",Toast.LENGTH_SHORT).show();
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(), "메일을 보냈습니다.", Toast.LENGTH_SHORT).show();
                                 finish();
-                                startActivity(new Intent(forgotpassword.this,MainActivity.class));
-                            }
-                            else
-                            {
-                                Toast.makeText(getApplicationContext(),"이메일이 잘못되었거나 계정이 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(forgotpassword.this, MainActivity.class));
+                            } else {
+                                Toast.makeText(getApplicationContext(), "이메일이 잘못되었거나 계정이 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
                             }
 
                         }
